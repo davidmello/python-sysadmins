@@ -30,7 +30,7 @@ def lista_funcionarios():
 		a = a + " " + f["nome"] + "<br />"
 	return a
 
-@app.route("/funcionarios/<int:id>")
+@app.route("/funcionarios/<int:id>/")
 def lista_funcionario(id):
 	json_data = open('banco.json').read()
 	arquivo_json = json.loads(json_data)
@@ -39,7 +39,7 @@ def lista_funcionario(id):
 		if f["id"] == id:
 			return f["nome"]
 		
-@app.route("/funcionarios/<int:id>/dependentes")
+@app.route("/funcionarios/<int:id>/dependentes/")
 def lista_dependentes_funcionario(id):
 	json_data = open('banco.json').read()
 	arquivo_json = json.loads(json_data)
@@ -51,15 +51,24 @@ def lista_dependentes_funcionario(id):
 				b = b + " " + d["nome"] + "<br />"
 			return b
 				
-@app.route("/funcionarios/<int:id>/dependentes/<nome>/<idade>", method="POST")
-def lista_dependentes_funcionario(id,nome,idade):
-	with open('banco.json','w') as file_opened:
-	# arquivo_json = json.loads(json_data)
-		adicionar = {"nome":nome, "idade":idade}
-		for f in arquivo_json:
-			if f["id"] == id:
-				f.append(adicionar)
-			return True
+@app.route("/funcionarios/<int:id>/dependentes/<nome>/<idade>/",methods=["POST"])
+def insere_dependentes_funcionario(id,nome,idade):
+	# arquivo_aberto = json.loads(open('banco.json','r+').read())
+	arquivo_aberto = open('banco.json','r+').read()
+
+	arquivo_json = json.loads(arquivo_aberto)
+
+	# return help(id)
+	# return str(adicionar)
+	adicionar = json.dumps({"nome": nome, "idade": idade})
+
+	
+	for f in arquivo_json:
+		if f["id"] == id:
+			f.append(json.loads(adicionar))
+			
+	# arquivo_aberto.write(f)
+	return "	"
 
 
 if __name__ == '__main__':
