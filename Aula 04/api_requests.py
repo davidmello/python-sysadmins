@@ -45,9 +45,16 @@ def add_project_members(project_id,user_id):
 	return response
 
 
+def addprojecthook(project_id,hook_url):
+	url = "http://gitlab.dexter.com.br/api/v3/projects/%s/hooks?private_token=%s" % (project_id,token)
+	hook = {"url":hook_url,"push_events":True}
+
+	response = json.loads(requests.post(url,data=hook)._content)
+
 if __name__ == '__main__':
 	# x=0
 	# while x < 10: 
+
 	# 	cria_usuario(url,token,recurso,"David%s" % x,"4linux123","david.hasson%s@gmail.com" % x ,"david.hasson%s" % x)
 	# 	x=x+1
 
@@ -55,5 +62,16 @@ if __name__ == '__main__':
 	# print lista_usuarios("users")
 	# add_project_members(,)
 
-	user_id = [u for u in lista_usuarios("users") if u.get("username") == "Davous"]
-	print user_id
+	# user_id = [u for u in lista_usuarios("users") if u.get("username") == "Davous"]
+	projetos = lista_projetos("projects", "1irgLViWqybuM19dhAgQ")	
+	usuarios = lista_usuarios("users")
+	for u in usuarios:
+		print u.get("username") + ":" + str(u.get("id"))
+
+	for p in projetos:
+		print p.get("name") + ":" + str(p.get("id"))
+
+	addprojecthook(9,"http://jenkins:8080/hook")
+		
+
+	# print user_id
