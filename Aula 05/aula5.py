@@ -2,7 +2,6 @@
 
 from docker import Client
 
-
 heydoc = Client(base_url="tcp://192.168.0.2:2376",version="auto")
 
 # listar containers iniciados
