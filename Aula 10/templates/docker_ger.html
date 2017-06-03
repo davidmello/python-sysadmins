@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="container">
+	<div class="panel-heading"><b>Running Containers</b></div>
+	<div class="panel-body">
+		<th>Nome</th>
+		<th>Endereco</th>
+		<th>Status</th>
+		<th>Acoes</th>
+		{% for c in containers %}
+		<tr>
+			<td>{{c.Names[0]}}</td>
+			<td>{{c.NetworkSettings.Networks.bridge.IPAddress}}</td>
+
+		</tr>
+		{% endfor %}
+
+
+{% endblock %}

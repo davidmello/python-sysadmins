@@ -18,7 +18,7 @@ class DockerModule():
 
 
 	def startContainer(self, container):
-		help(self.cli)
+		# help(self.cli)
 		container = [ c.get("id") for c in self.cli.container(all=True) if min(c.get("Names") == "/" + container) ]
 		self.cli.start_container(container=min(container))
 		print "[+] Endereco do container %s" % (self.cli.inspect_container(min(container)).get("NetworkSettings").get("Networks").get("bridge").get("IPAddress"))
